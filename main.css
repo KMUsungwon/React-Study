@@ -1,0 +1,52 @@
+body {margin: 0; position: relative; height: 100vh;}
+.container {
+    position: absolute;
+    width: 325px;
+    height: 325px;
+    background: #ffffff;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    overflow: hidden;
+    left: 50%;
+    top: 25%;
+    transform: translateX(-50%);
+}
+.container h3 {text-align: center; margin: 0 auto; padding: 10px;}
+.item {position: relative;}
+/*owner, contents design*/
+.container .item #owner {
+    border: 1px solid lightgray;
+    height: 30px;
+    width: inherit;
+    box-sizing: border-box;
+    padding-left: 30px;
+    outline: none;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+.container .item .fa-user {
+    position: absolute;
+    top: 50%; left: 0;
+    transform: translateY(-50%);
+    color: gray;
+    font-size: 18px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+#contents {width: 100%; margin-top: 10px;}
+textarea {outline: none; border: 1px solid lightgray; border-radius: 5px; transition: 0.3s;}
+textarea:focus {border: 1px solid dodgerblue; box-shadow: 0 0 3px dodgerblue;}
+textarea:focus::placeholder {visibility: hidden;}
+.container .item input:focus {border: 1px solid dodgerblue; box-shadow: 0 0 3px dodgerblue; outline: none;}
+.container .item input:focus + .fa-user {color: dodgerblue;}
+#owner:focus::placeholder {visibility: hidden;}
+
+/*close button design*/
+#closeButton {border: 1px solid #e6e6e6; padding: 7px; border-radius: 5px; background: #e6e6e6; font-size: 14px; font-weight: bold;
+position: absolute; top: 5px; right: 5px;}
+
+/*register button design*/
+#register {width: inherit; border: none; padding: 10px; border-radius: 5px; margin-top: 10px; font-size: 14px; color: gray; transition: 0.3s;}
+#register:hover {font-weight: bold;}

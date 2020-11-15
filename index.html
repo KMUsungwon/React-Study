@@ -9,15 +9,184 @@
 
 </head>
 <body>
+<!--게시글 생성 다이얼로그-->
 <div class="container">
     <h3>게시글 작성하기💁</h3>
-    <span id="closeButton">닫기</span>
+    <span class="closeButton" onclick="closeDialog()">close</span>
     <div class="item">
         <input type="text" placeholder="작성자 이름 입력" id="owner">
         <i class="fas fa-user"></i>
     </div>
     <textarea name="" id="contents" cols="30" rows="10" placeholder="내용을 입력하세요"></textarea>
-    <input type="button" value="게시" onclick="" id="register">
+    <input type="button" value="게시" onclick="getStart()" class="register">
+    <span class="bottomContent">Web in Kookmin React Study</span>
 </div>
+
+<!--게시글 수정 다이얼로그-->
+<div class="container" id="editDialog">
+    <h3>게시글 수정하기💁</h3>
+    <span class="closeButton" onclick="closeEditDialog()">close</span>
+    <div class="item">
+        <input type="text" placeholder="게시글 번호 입력" id="postId">
+    </div>
+    <textarea name="" id="editContent" cols="30" rows="10" placeholder="수정 내용 입력"></textarea>
+    <input type="button" value="수정" onclick="editStart()" class="register">
+    <span class="bottomContent">Web in Kookmin React Study</span>
+</div>
+
+<div class="first-wrap">
+    <div class="gnb">
+        <span onclick="showDialog()">Create Content</span>
+        <span onclick="showDelete()">Delete Content</span>
+        <span onclick="showEdit()">Edit Content</span>
+    </div>
+<div class="wrap">
+    <h1>윙크 리액트 스터디 타임라인</h1>
+
+    <div class="timeLine">
+<!--        <div class="inner_container">-->
+<!--            <h2>임성원</h2>-->
+<!--            <p>내용내용</p>-->
+<!--        </div>-->
+    </div>
+</div>
+</div>
+
+
+<script>
+    let postInput = document.querySelector('textarea');
+    let snsOwner = document.querySelector('#owner');
+    let timeLine = document.querySelector('.timeLine');
+
+    window.onload = async () => {
+        const postData = await fetch('http://ec2-52-78-131-251.ap-northeast-2.compute.amazonaws.com/feed/', {
+            method: 'GET',
+        })
+        const postResult = await postData.json();
+        for (let i = 0; i < postResult.length; i++) {
+            post(postResult[i].id,postResult[i].owner, postResult[i].content);
+        }
+    }
+
+    const showDialog = () => {
+        let owner = document.querySelector('#owner');
+        let description = document.querySelector('#contents');
+        let wrap = document.querySelector('.first-wrap').style.opacity = '0.3';
+        owner.value = "";
+        description.value = "";
+
+        let diaLog = document.querySelector('.container');
+        diaLog.style.display = 'block';
+    }
+    const closeDialog = () => {
+        let wrap = document.querySelector('.first-wrap').style.opacity = '1';
+        let diaLog = document.querySelector('.container');
+        diaLog.style.display = 'none';
+    }
+    const showEdit = () => {
+        let postID = document.querySelector('#postId');
+        let contents = document.querySelector('#editContent');
+        let wrap = document.querySelector('.first-wrap').style.opacity = '0.3';
+        let editDialog = document.querySelector('#editDialog');
+        editDialog.style.display = 'block';
+        postID.value = '';
+        contents.value = '';
+    }
+    const closeEditDialog = () => {
+        let wrap = document.querySelector('.first-wrap').style.opacity = '1';
+        let editDialog = document.querySelector('#editDialog');
+        editDialog.style.display = 'none';
+    }
+    const getStart = () => {
+        // let owner = document.querySelector('#owner');
+        // let contents = document.querySelector('#contents');
+
+        // post(owner.value, contents.value);
+        if(postInput.value === "" || snsOwner.value === "") {
+            alert("빈칸 없이 입력해주세요.");
+        }
+        else {
+            createPost();
+        }
+    }
+    const createPost = async () => {
+        await fetch('http://ec2-52-78-131-251.ap-northeast-2.compute.amazonaws.com/feed/', {
+            method: 'POST',
+            body: JSON.stringify({
+                owner: snsOwner.value,
+                content: postInput.value,
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(res => {
+            post(snsOwner.value, postInput.value);
+        })
+    }
+
+    const post = (id, name, description) => {
+        let container = document.createElement('div'); // div 태그 생성
+        let owner = document.createElement('h2'); // 작성자 들어갈 h1 태그
+        let content = document.createElement('p'); // 내용 들어갈 p 태그
+
+        // 각 게시물에 맞는 id 값 설정
+        $(window).ready(function () {
+            $(owner).attr('data-content', id);
+        });
+
+        owner.appendChild(document.createTextNode(name));
+        content.appendChild(document.createTextNode(description));
+
+
+        container.setAttribute('class', 'inner_container');
+        container.appendChild(owner);
+        container.appendChild(content);
+        timeLine.appendChild(container);
+
+        closeDialog();
+    }
+
+    const showDelete = async () => {
+        let postId = prompt("삭제할 게시물의 아이디를 입력해 주세요.");
+
+        await fetch('http://ec2-52-78-131-251.ap-northeast-2.compute.amazonaws.com/feed/'+postId, {
+            method: 'DELETE',
+        })
+        .then(res => res.json())
+    }
+
+    /*
+    const editStart = () => {
+        let postId = document.querySelector('#postId');
+        let editContent = document.querySelector('#editContent');
+
+        if(postId.value.length==0 || editContent.value.length==0) {
+            alert("빈칸 없이 입력해 주세요.");
+        }
+        else {editPost(postId.value, editContent.value);}
+    }
+    const editPost = async (id, contents) => {
+        await fetch('http://ec2-52-78-131-251.ap-northeast-2.compute.amazonaws.com/feed/'+id,{
+            method: 'PATCH',
+            body: JSON.stringify({
+                content: contents,
+            }),
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'Accept': 'application/json',
+            },
+        })
+        .then(res => res.json())
+        .then(res => console.log(res))
+        .catch(err => {console.log("Error message + "+err)})
+
+        closeEditDialog();
+    }
+     */
+
+</script>
+
 </body>
 </html>

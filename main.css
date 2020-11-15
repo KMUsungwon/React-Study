@@ -1,4 +1,4 @@
-body {margin: 0; position: relative; background-color: #F2F3F5; height: 100vh;}
+body {margin: 0; position: relative; background: linear-gradient(to right,#C6FFDD, #FBD786, #f7797d); height: 100vh;}
 .first-wrap{ transition: 0.3s;}
 .container {
     z-index: 100;
@@ -75,28 +75,6 @@ position: absolute; top: 5px; right: 5px; cursor: pointer;}
 .wrap span {display: block; text-align: center; color: #333333; transition: 0.3s; cursor: pointer;}
 .wrap span:hover {font-weight: bold;}
 
-/*time line design*/
-.timeLine {position: absolute; left: 50%; transform: translateX(-50%); margin-top: 50px; text-align: center;}
-.inner_container {
-    width: 500px;
-    height: 150px;
-    margin-bottom: 100px;
-}
-.inner_container h2 {font-size: 16px; text-align: center;}
-.inner_container h2:before {
-    content: attr(data-content) '';
-    background: royalblue;
-    color: #ffffff;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    margin-right: 5px;
-    border-radius: 50%;
-    font-size: 12px;
-    line-height: 20px;
-}
-.inner_container p {border: 1px solid #555555; border-radius: 10px; padding: 10px; box-sizing: border-box; height: 200px;}
 
 /*게시물 작성, 삭제, 수정 메뉴*/
 /*가운데 왼쪽 정렬*/
@@ -115,3 +93,26 @@ position: absolute; top: 5px; right: 5px; cursor: pointer;}
     opacity: 0;
 }
 .gnb span:hover:before {opacity: 1;}
+
+/*time line design*/
+.timeLine {position: absolute; left: 50%; transform: translateX(-50%); margin-top: 50px; text-align: center;}
+.inner_container {
+    width: 500px;
+    height: 150px;
+    margin-bottom: 70px;
+}
+.inner_container h2 {font-size: 16px; text-align: center; width: 100px;}
+.inner_container h2:before {
+    content: attr(data-content) '';
+    background: royalblue;
+    color: #ffffff;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    margin-right: 5px;
+    border-radius: 50%;
+    font-size: 12px;
+    line-height: 20px;
+}
+.inner_container p {border: 3px solid transparent; padding: 10px; box-sizing: border-box; height: 100%; width: 100%; margin-left: 3px; border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%); border-image-slice: 1; font-family: "Gmarket Sans";}

@@ -155,9 +155,10 @@
             method: 'DELETE',
         })
         .then(res => res.json())
+
     }
 
-    /*
+
     const editStart = () => {
         let postId = document.querySelector('#postId');
         let editContent = document.querySelector('#editContent');
@@ -165,10 +166,10 @@
         if(postId.value.length==0 || editContent.value.length==0) {
             alert("빈칸 없이 입력해 주세요.");
         }
-        else {editPost(postId.value, editContent.value);}
+        else {editPost(postId.value.toString(), editContent.value.toString());}
     }
     const editPost = async (id, contents) => {
-        await fetch('http://ec2-52-78-131-251.ap-northeast-2.compute.amazonaws.com/feed/'+id,{
+        await fetch('http://ec2-52-78-131-251.ap-northeast-2.compute.amazonaws.com/feed/'+id+'/',{
             method: 'PATCH',
             body: JSON.stringify({
                 content: contents,
@@ -176,6 +177,7 @@
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
                 'Accept': 'application/json',
+                'Authorization': '',
             },
         })
         .then(res => res.json())
@@ -183,8 +185,8 @@
         .catch(err => {console.log("Error message + "+err)})
 
         closeEditDialog();
+        window.location.reload();
     }
-     */
 
 </script>
 

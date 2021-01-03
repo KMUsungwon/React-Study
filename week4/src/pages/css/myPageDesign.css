@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.icon {
+    width: 125px;
+    height: 125px;
+    margin: 30px;
+    position: relative;
+}
+
+.icon span {
+    position: absolute;
+    background: #000000;
+    color: #ffffff;
+    width: 300px;
+    top: -80px;/*위로 이동시키기*/
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    /*왼쪽 중앙으로 이동이시키기*/
+    left: 50%;
+    transform: translateX(-50%);
+
+    opacity: 0;
+    transition: 0.5s all;
+    visibility: hidden;
+}
+.icon span:after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #000000;
+    /*transform은 여러개 사용 불가, 한 문장에 다 써야함*/
+    transform: rotate(45deg) translateX(-50%);
+    bottom: -5px; /*height 값의 절반*/
+
+    left: 50%;
+}
+
+.icon:hover span {
+    opacity: 1;
+    transition: 0.5s all;
+    visibility: visible;
+}
+
+.icons {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}

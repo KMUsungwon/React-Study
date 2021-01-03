@@ -12,7 +12,7 @@ export function MyPage(props) {
                 <div className="icon">
                     <img src={user} className='icons'/>
                     <span>
-                   ㅇ     임성원(SeongWon Lim) / 1998.03.27
+                        임성원(SeongWon Lim) / 1998.03.27
                     </span>
                 </div>
 

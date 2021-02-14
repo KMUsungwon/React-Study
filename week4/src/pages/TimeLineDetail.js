@@ -53,7 +53,7 @@ export function TimeLineDetail() {
     // 건드리다가 이상해질 것 같아서 못했읍니다 ㅎ
     const createComment = async (value) => {
         await fetch("https://react-js-sample-api.kmuwink.net/feed/"+value+"/comment/", {
-            method: 'DELETE',
+            method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
                 Authorization : 'Token ' + localStorage.getItem("token"),

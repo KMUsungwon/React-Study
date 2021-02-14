@@ -7,27 +7,33 @@ export function TimeLinePage(props) {
 
 
     useEffect(() => {
-        // GET
-        const server = async () => {
-            const result = await fetch("http://ec2-52-78-131-251.ap-northeast-2.compute.amazonaws.com/feed/", {
-                method: 'get',
-            });
+        if(localStorage.getItem("token")) {
+            // GET
+            const server = async () => {
+                const result = await fetch("https://react-js-sample-api.kmuwink.net/feed/", {
+                    method: 'get',
+                    headers: {
+                      Authorization : 'Token ' + localStorage.getItem("token"),
+                    },
+                });
 
-            const resultJson = await result.json();
-            const propsData = resultJson.map(read => {
-                return {
-                    name: read.owner,
-                    content: read.content,
-                    create_at: read.created_at,
-                };
-            });
-            setfeeds(propsData); // feeds 안에 리스트 형태의 값을 할당
-            console.log(propsData);
-        };
+                const resultJson = await result.json();
+                const propsData = resultJson.map(read => {
+                    return {
+                        id: read.id,
+                        name: read.owner,
+                        content: read.content,
+                        create_at: read.created_at,
+                    };
+                });
+                setfeeds(propsData); // feeds 안에 리스트 형태의 값을 할당
+                // console.log(propsData);
+            };
 
-        server();
-
-
+            server();
+        } else {
+            alert("로그인 해주세욥 ㅋ");
+        }
     });
 
     return <div>

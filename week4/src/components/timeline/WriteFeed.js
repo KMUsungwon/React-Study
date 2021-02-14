@@ -7,22 +7,21 @@ export function WriteFeed(props) {
 
     const ownerFunc = (e) => {
         setOwner(e.target.value);
-        console.log(owner);
     };
     const contentFunc = (e) => {
         setContents(e.target.value);
-        console.log(contents);
     };
 
     const postFeed = async () => {
-        await fetch("http://ec2-52-78-131-251.ap-northeast-2.compute.amazonaws.com/feed/", {
+        await fetch("https://react-js-sample-api.kmuwink.net/feed/", {
             method: 'POST',
             body: JSON.stringify({
                 owner: owner,
                 content: contents
             }),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization' : 'Token ' + localStorage.getItem("token"),
             }
         });
     };

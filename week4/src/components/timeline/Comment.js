@@ -1,12 +1,10 @@
 import React from 'react';
+import {Feed} from "./Feed";
 
-export function Feed(props) {
+export function Comment(props) {
 
     return <div style={styles.feed}>
-        <div>id : {props.id}</div>
-        <div>작성자 : {props.name}</div>
-        <div>내용 : {props.content}</div>
-        <div>날짜 : {props.create_at}</div>
+        {props.comments.map((feed) => <Feed id={feed.id} name={feed.name} content={feed.content} create_at={feed.create_at}/>)}
     </div>;
 }
 
